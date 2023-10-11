@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E5E5E5"
+    tools:context=".MainActivity">
+
+    <!-- Heading -->
+
+    <TextView
+        android:id="@+id/Heading_box"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="@drawable/box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.642"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/Heading_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/Heading_logo_content_description"
+        android:translationZ="100dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/Heading_box"
+        app:layout_constraintDimensionRatio="h,1:1"
+        app:layout_constraintStart_toStartOf="@+id/Heading_box"
+        app:layout_constraintTop_toTopOf="@+id/Heading_box"
+        app:srcCompat="@drawable/android_chrome_512x512"
+        tools:srcCompat="@drawable/android_chrome_512x512" />
+
+    <TextView
+        android:id="@+id/Heading_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/Heading_text"
+        android:textColor="#12141c"
+        android:textSize="30dp"
+        android:translationZ="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Heading_box"
+        app:layout_constraintStart_toEndOf="@+id/Heading_logo"
+        app:layout_constraintTop_toTopOf="@+id/Heading_box"
+        tools:ignore="SpUsage" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Reset_test_button"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/purple_box"
+        android:fontFamily="@font/roboto"
+        android:text="Reset Test"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:translationZ="100dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/Heading_box"
+        app:layout_constraintEnd_toEndOf="@+id/Heading_box"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpUsage,TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/minimum_results_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Time remaining:"
+        android:textColor="#12141c"
+        android:textSize="30dp"
+        android:translationZ="210dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/Minimum_results_box"
+        app:layout_constraintEnd_toEndOf="@+id/Minimum_results_box"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="@+id/Minimum_results_box"
+        app:layout_constraintTop_toBottomOf="@+id/Minimum_results_text"
+        app:layout_constraintVertical_bias="0.149"
+        tools:visibility="gone"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/Minimum_results_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:text="Testing WiFi Strength please wait for more data"
+        android:textAlignment="center"
+        android:textColor="#12141c"
+        android:textSize="40dp"
+        android:translationZ="210dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/Minimum_results_box"
+        app:layout_constraintEnd_toEndOf="@+id/Minimum_results_box"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="@+id/Minimum_results_box"
+        app:layout_constraintTop_toTopOf="@+id/Minimum_results_box"
+        app:layout_constraintVertical_bias="0.283"
+        tools:visibility="gone"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/Minimum_results_box"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/box_opacity"
+        android:translationZ="200dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Heading_box"
+        tools:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Heading_box"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/Location_services_warning_box"
+                android:layout_width="500dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="100dp"
+                android:background="@drawable/other_networks_orange_box"
+                android:translationZ="150dp"
+                app:layout_constraintBottom_toBottomOf="@+id/Other_networks_box"
+                app:layout_constraintEnd_toEndOf="@+id/Other_networks_box"
+                app:layout_constraintStart_toStartOf="@+id/Other_networks_box"
+                app:layout_constraintTop_toTopOf="@+id/Other_networks_box" />
+
+            <TextView
+                android:id="@+id/Location_services_warning_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Please enable location services in your tablet settings"
+                android:textColor="#12141c"
+                android:textSize="15dp"
+                android:translationZ="100dp"
+
+                app:layout_constraintBottom_toBottomOf="@+id/Other_networks_box"
+                app:layout_constraintEnd_toEndOf="@+id/Other_networks_box"
+                app:layout_constraintStart_toStartOf="@+id/Other_networks_box"
+                app:layout_constraintTop_toTopOf="@+id/Other_networks_box"
+                tools:ignore="TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/Wifi_details_heading_box"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/box_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/Wifi_details_heading_text"
+                android:layout_width="250dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/Wifi_details_heading_text"
+                android:textColor="#12141c"
+                android:textSize="20dp"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toStartOf="@+id/Wifi_details_heading_box"
+                app:layout_constraintTop_toTopOf="@+id/Wifi_details_heading_box"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/Wifi_details_box"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+
+                android:background="@drawable/box_bottom"
+                app:layout_constraintEnd_toEndOf="@+id/Wifi_details_heading_box"
+                app:layout_constraintStart_toStartOf="@+id/Wifi_details_heading_box"
+                app:layout_constraintTop_toBottomOf="@+id/Wifi_details_heading_box" />
+
+            <TextView
+                android:id="@+id/Wifi_details_properties_text"
+                android:layout_width="280dp"
+                android:layout_height="100dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="9dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/Wifi_details_properties_text"
+                android:textColor="#12141c"
+                android:textSize="20dp"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toStartOf="@+id/Wifi_details_box"
+                app:layout_constraintTop_toTopOf="@+id/Wifi_details_box"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/Wifi_details_values"
+                android:layout_width="200dp"
+                android:layout_height="0dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="9dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/Wifi_details_values_placeholder"
+                android:textColor="#12141c"
+                android:textSize="20dp"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toEndOf="@+id/Wifi_details_properties_text"
+                app:layout_constraintTop_toTopOf="@+id/Wifi_details_box"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/connection_Quality_heading_box"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/box_top"
+                app:layout_constraintEnd_toEndOf="@+id/Wifi_details_box"
+                app:layout_constraintStart_toStartOf="@+id/Wifi_details_box"
+                app:layout_constraintTop_toBottomOf="@+id/Wifi_details_box" />
+
+            <TextView
+                android:id="@+id/connection_Quality_heading_text4"
+                android:layout_width="340dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/Connection_Quality_heading_text"
+                android:textColor="#12141c"
+                android:textSize="20dp"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toStartOf="@+id/connection_Quality_heading_box"
+                app:layout_constraintTop_toTopOf="@+id/connection_Quality_heading_box"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/Connection_quality_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/roboto"
+                android:text="Since:"
+                android:textColor="#12141c"
+                android:textSize="20dp"
+                android:translationZ="100dp"
+                app:layout_constraintEnd_toEndOf="@+id/connection_Quality_heading_box"
+                app:layout_constraintTop_toTopOf="@+id/connection_Quality_heading_box"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/Connection_Quality_box"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+
+                android:background="@drawable/box_bottom"
+                app:layout_constraintEnd_toEndOf="@+id/Wifi_details_box"
+                app:layout_constraintStart_toStartOf="@+id/Wifi_details_box"
+                app:layout_constraintTop_toBottomOf="@+id/connection_Quality_heading_box" />
+
+            <TextView
+                android:id="@+id/connection_Quality_Good_box"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="19dp"
+                android:background="@drawable/green_box"
+                android:translationZ="50dp"
+                app:layout_constraintStart_toStartOf="@+id/Connection_Quality_box"
+                app:layout_constraintTop_toTopOf="@+id/Connection_Quality_box" />
+
+            <TextView
+                android:id="@+id/Connection_Quality_good_percentage"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="90%"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="30dp"
+                android:translationZ="100dp"
+                app:layout_constraintEnd_toEndOf="@+id/connection_Quality_Good_box"
+                app:layout_constraintStart_toStartOf="@+id/connection_Quality_Good_box"
+                app:layout_constraintTop_toTopOf="@+id/connection_Quality_Good_box"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/connection_Quality_good_text"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Stable"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:translationZ="100dp"
+                app:layout_constraintEnd_toEndOf="@+id/connection_Quality_Good_box"
+                app:layout_constraintStart_toStartOf="@+id/connection_Quality_Good_box"
+                app:layout_constraintTop_toBottomOf="@+id/Connection_Quality_good_percentage"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/connection_Quality_Alright_box"
+                android:layout_width="150dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/connection_quality_orange_box"
+                android:translationZ="50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/connection_Quality_Good_box"
+                app:layout_constraintEnd_toStartOf="@+id/connection_Quality_bad_box"
+                app:layout_constraintStart_toEndOf="@+id/connection_Quality_Good_box"
+                app:layout_constraintTop_toTopOf="@+id/connection_Quality_Good_box" />
+
+            <TextView
+                android:id="@+id/connection_Quality_average_percentage"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="5%"
+                android:textAlignment="center"
+                android:textColor="#12141c"
+                android:textSize="30dp"
+                android:translationZ="100dp"
+                app:layout_constraintEnd_toEndOf="@+id/connection_Quality_Alright_box"
+                app:layout_constraintStart_toStartOf="@+id/connection_Quality_Alright_box"
+                app:layout_constraintTop_toTopOf="@+id/Connection_Quality_good_percentage"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/connection_Quality_average_text"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Intermittent"
+                android:textAlignment="center"
+                android:textColor="#12141c"
+                android:textSize="20dp"
+                android:translationZ="100dp"
+                app:layout_constraintEnd_toEndOf="@+id/connection_Quality_Alright_box"
+                app:layout_constraintStart_toStartOf="@+id/connection_Quality_Alright_box"
+                app:layout_constraintTop_toBottomOf="@+id/connection_Quality_average_percentage"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/connection_Quality_bad_box"
+                android:layout_width="150dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/connection_quality_red_box"
+                android:translationZ="50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/connection_Quality_Good_box"
+                app:layout_constraintEnd_toEndOf="@+id/Connection_Quality_box"
+                app:layout_constraintTop_toTopOf="@+id/connection_Quality_Good_box" />
+
+            <TextView
+                android:id="@+id/connection_Quality_bad_percentage"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="5%"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="30dp"
+                android:translationZ="100dp"
+                app:layout_constraintEnd_toEndOf="@+id/connection_Quality_bad_box"
+                app:layout_constraintStart_toStartOf="@+id/connection_Quality_bad_box"
+                app:layout_constraintTop_toTopOf="@+id/Connection_Quality_good_percentage"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/connection_Quality_bad_text"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Poor"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:translationZ="100dp"
+                app:layout_constraintEnd_toEndOf="@+id/connection_Quality_bad_box"
+                app:layout_constraintStart_toStartOf="@+id/connection_Quality_bad_box"
+                app:layout_constraintTop_toBottomOf="@+id/connection_Quality_bad_percentage"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <ImageView
+                android:id="@+id/connection_Quality_Icon_box"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:layout_marginStart="30dp"
+
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/round"
+                android:importantForAccessibility="no"
+                app:layout_constraintBottom_toBottomOf="@+id/Connection_Quality_box"
+                app:layout_constraintStart_toStartOf="@+id/Connection_Quality_box" />
+
+            <ImageView
+                android:id="@+id/Connection_Quality_Icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/round"
+                android:importantForAccessibility="no"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toStartOf="@+id/connection_Quality_Icon_box"
+                app:layout_constraintTop_toTopOf="@+id/connection_Quality_Icon_box" />
+
+            <TextView
+                android:id="@+id/Connection_Quality_outcome_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="23dp"
+                android:fontFamily="@font/roboto"
+                android:text="FourJaw will not work reliably, please speak to your IT Team"
+                android:textColor="#12141c"
+                android:textSize="15dp"
+                android:translationZ="100dp"
+                app:layout_constraintBottom_toBottomOf="@+id/Connection_Quality_box"
+                app:layout_constraintStart_toEndOf="@+id/connection_Quality_Icon_box"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/Timeline_heading_box"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/box_top"
+                app:layout_constraintEnd_toEndOf="@+id/Connection_Quality_box"
+                app:layout_constraintStart_toStartOf="@+id/Connection_Quality_box"
+                app:layout_constraintTop_toBottomOf="@+id/Connection_Quality_box" />
+
+            <TextView
+                android:id="@+id/timeline_heading_text"
+                android:layout_width="340dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/Timeline_heading_text"
+                android:textColor="#12141c"
+                android:textSize="20dp"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toStartOf="@+id/Timeline_heading_box"
+                app:layout_constraintTop_toTopOf="@+id/Timeline_heading_box"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/Timeline_current_strength_text"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/roboto"
+                android:text="Current Strength: "
+                android:textColor="#12141c"
+                android:textSize="20dp"
+                android:translationZ="100dp"
+                app:layout_constraintEnd_toEndOf="@+id/Timeline_heading_box"
+                app:layout_constraintTop_toTopOf="@+id/Timeline_heading_box"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/Timeline_box"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+
+                android:background="@drawable/box_bottom"
+                app:layout_constraintEnd_toEndOf="@+id/Timeline_heading_box"
+                app:layout_constraintStart_toStartOf="@+id/Timeline_heading_box"
+                app:layout_constraintTop_toBottomOf="@+id/Timeline_heading_box" />
+
+            <TextView
+                android:id="@+id/Timeline_legend_box"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/Timeline_box"
+                app:layout_constraintStart_toStartOf="@+id/Timeline_box"
+                app:layout_constraintTop_toTopOf="@+id/Timeline_box" />
+
+            <TextView
+                android:id="@+id/Timeline_legend_Wifi_strength_box"
+                android:layout_width="140dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/Timeline_legend_box"
+                app:layout_constraintStart_toStartOf="@+id/Timeline_legend_box"
+                app:layout_constraintTop_toTopOf="@+id/Timeline_legend_box" />
+
+            <TextView
+                android:id="@+id/Timeline_legend_Wifi_strength_icon"
+                android:layout_width="30dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="7dp"
+                android:background="#6D2DD4"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toStartOf="@+id/Timeline_legend_Wifi_strength_box"
+                app:layout_constraintTop_toTopOf="@+id/Timeline_legend_Wifi_strength_box" />
+
+            <TextView
+                android:id="@+id/timeline_legend_Wifi_strength_text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Wifi Strength"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toEndOf="@+id/Timeline_legend_Wifi_strength_icon"
+                app:layout_constraintTop_toTopOf="@+id/Timeline_legend_Wifi_strength_box" />
+
+            <TextView
+                android:id="@+id/timeline_legend_Network_change_box"
+                android:layout_width="140dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/Timeline_legend_box"
+                app:layout_constraintStart_toEndOf="@+id/Timeline_legend_Wifi_strength_box"
+                app:layout_constraintTop_toTopOf="@+id/Timeline_legend_box" />
+
+            <TextView
+                android:id="@+id/timeline_legend_Network_change_icon"
+                android:layout_width="30dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="7dp"
+                android:background="@color/RED"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toStartOf="@+id/timeline_legend_Network_change_box"
+                app:layout_constraintTop_toTopOf="@+id/timeline_legend_Network_change_box" />
+
+            <TextView
+                android:id="@+id/timeline_legend_Network_change_text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:text="Network change"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toStartOf="@+id/timeline_legend_Network_change_box"
+                app:layout_constraintTop_toTopOf="@+id/timeline_legend_Network_change_box" />
+
+            <TextView
+                android:id="@+id/timeline_legend_Access_point_change_box"
+                android:layout_width="160dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/Timeline_legend_box"
+                app:layout_constraintStart_toEndOf="@+id/timeline_legend_Network_change_text4"
+                app:layout_constraintTop_toTopOf="@+id/Timeline_legend_box" />
+
+            <TextView
+                android:id="@+id/timeline_legend_Access_point_change_icon_white"
+                android:layout_width="10dp"
+                android:layout_height="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="7dp"
+                android:background="#F5F5F5"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toStartOf="@+id/timeline_legend_Access_point_change_box"
+                app:layout_constraintTop_toTopOf="@+id/timeline_legend_Access_point_change_box" />
+
+            <TextView
+                android:id="@+id/timeline_legend_Access_point_change_icon_red"
+                android:layout_width="30dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="7dp"
+                android:background="@color/RED"
+                android:translationZ="50dp"
+                app:layout_constraintStart_toStartOf="@+id/timeline_legend_Access_point_change_box"
+                app:layout_constraintTop_toTopOf="@+id/timeline_legend_Access_point_change_box" />
+
+            <TextView
+                android:id="@+id/timeline_legend_Access_point_change_text5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:text="Access point change"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toStartOf="@+id/timeline_legend_Access_point_change_box"
+                app:layout_constraintTop_toTopOf="@+id/timeline_legend_Access_point_change_box" />
+
+            <com.github.mikephil.charting.charts.CombinedChart
+                android:id="@+id/Timeline"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/transparent"
+                android:translationZ="100dp"
+                app:layout_constraintBottom_toBottomOf="@+id/Timeline_box"
+                app:layout_constraintEnd_toEndOf="@+id/Timeline_box"
+                app:layout_constraintStart_toStartOf="@+id/Timeline_box"
+                app:layout_constraintTop_toBottomOf="@+id/Timeline_legend_box" />
+
+            <TextView
+                android:id="@+id/Timeline_green_box"
+                android:layout_width="0dp"
+                android:layout_height="67dp"
+                android:background="#4D539719"
+                android:translationZ="50dp"
+                app:layout_constraintBottom_toTopOf="@+id/Timeline_orange_box"
+                app:layout_constraintEnd_toEndOf="@+id/Timeline_orange_box"
+                app:layout_constraintStart_toStartOf="@+id/Timeline_orange_box" />
+
+            <TextView
+                android:id="@+id/Timeline_orange_box"
+                android:layout_width="0dp"
+                android:layout_height="22dp"
+                android:background="#4DF89D13"
+                android:translationZ="50dp"
+                app:layout_constraintBottom_toTopOf="@+id/Timeline_red_box"
+                app:layout_constraintEnd_toEndOf="@+id/Timeline_red_box"
+                app:layout_constraintStart_toStartOf="@+id/Timeline_red_box" />
+
+            <TextView
+                android:id="@+id/Timeline_red_box"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="49dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginBottom="35dp"
+                android:background="#4DB00215"
+                android:translationZ="50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/Timeline_box"
+                app:layout_constraintEnd_toEndOf="@+id/Timeline_box"
+                app:layout_constraintStart_toStartOf="@+id/Timeline_box" />
+
+            <TextView
+                android:id="@+id/Other_networks_heading_box"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/box_top"
+                app:layout_constraintEnd_toEndOf="@+id/Timeline_heading_box"
+                app:layout_constraintStart_toStartOf="@+id/Timeline_heading_box"
+                app:layout_constraintTop_toBottomOf="@+id/Timeline_box" />
+
+            <TextView
+                android:id="@+id/other_networks_heading_text"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/Other_networks_heading_text"
+                android:textColor="#12141c"
+                android:textSize="20dp"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toStartOf="@+id/Other_networks_heading_box"
+                app:layout_constraintTop_toTopOf="@+id/Other_networks_heading_box"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/Other_networks_box"
+                android:layout_width="0dp"
+                android:layout_height="190dp"
+
+                android:layout_marginBottom="60dp"
+                android:background="@drawable/box_bottom"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/Other_networks_heading_box"
+                app:layout_constraintStart_toStartOf="@+id/Other_networks_heading_box"
+                app:layout_constraintTop_toBottomOf="@+id/Other_networks_heading_box" />
+
+            <TextView
+                android:id="@+id/other_networks_SSID_text"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/Other_networks_SSID_text"
+                android:textColor="#12141c"
+                android:textSize="15dp"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toStartOf="@+id/Other_networks_box"
+                app:layout_constraintTop_toTopOf="@+id/Other_networks_box"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/other_networks_BSSID_text"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/Other_networks_BSSID_text"
+                android:textColor="#12141c"
+                android:textSize="15dp"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toEndOf="@+id/other_networks_SSID_text"
+                app:layout_constraintTop_toTopOf="@+id/other_networks_SSID_text"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/other_networks_strength_text"
+                android:layout_width="120dp"
+                android:layout_height="0dp"
+                android:layout_column="1"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/Other_networks_strength_text"
+                android:textColor="#12141c"
+                android:textSize="15dp"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toEndOf="@+id/other_networks_BSSID_text"
+                app:layout_constraintTop_toTopOf="@+id/other_networks_BSSID_text"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <TextView
+                android:id="@+id/other_networks_frequency_text"
+                android:layout_width="110dp"
+                android:layout_height="0dp"
+                android:layout_column="2"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/Other_networks_frequency_text"
+                android:textColor="#12141c"
+                android:textSize="15dp"
+                android:translationZ="100dp"
+                app:layout_constraintStart_toEndOf="@+id/other_networks_strength_text"
+                app:layout_constraintTop_toTopOf="@+id/other_networks_SSID_text"
+                tools:ignore="SpUsage,TextSizeCheck" />
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nestedScrollView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                android:verticalScrollbarPosition="right"
+                app:layout_constraintBottom_toBottomOf="@+id/Other_networks_box"
+                app:layout_constraintEnd_toEndOf="@+id/Other_networks_box"
+                app:layout_constraintStart_toStartOf="@+id/Other_networks_box"
+                app:layout_constraintTop_toBottomOf="@+id/other_networks_SSID_text">
+
+                <TableLayout
+                    android:id="@+id/Other_Networks_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat">
+
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/Other_networks_SSID_text"
+                            android:layout_width="200dp"
+                            android:layout_height="0dp"
+                            android:layout_column="0"
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="15dp"
+                            android:translationZ="100dp"
+                            tools:ignore="SpUsage,TextSizeCheck" />
+
+                        <TextView
+                            android:id="@+id/other_networks_BSSID_text_table"
+                            android:layout_width="200dp"
+                            android:layout_height="0dp"
+                            android:layout_column="0"
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="15dp"
+                            android:translationZ="100dp"
+                            tools:ignore="SpUsage,TextSizeCheck" />
+
+                        <ImageView
+                            android:id="@+id/Connection_Quality_Icon_table"
+                            android:layout_width="10dp"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center|center_horizontal|center_vertical"
+                            android:importantForAccessibility="no"
+                            android:scaleType="fitXY"
+                            android:translationZ="100dp" />
+
+                        <TextView
+                            android:id="@+id/Other_networks_strength_text"
+                            android:layout_width="110dp"
+                            android:layout_height="0dp"
+                            android:layout_column="1"
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="15dp"
+                            android:translationZ="100dp"
+                            tools:ignore="SpUsage,TextSizeCheck" />
+
+                        <TextView
+                            android:id="@+id/Other_networks_frequency_text"
+                            android:layout_width="110dp"
+                            android:layout_height="0dp"
+                            android:layout_column="2"
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="15dp"
+                            android:translationZ="100dp"
+                            tools:ignore="SpUsage,TextSizeCheck" />
+
+
+                    </TableRow>
+
+                </TableLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- Wifi details -->
+
+    <!-- Other Networks -->
+
+    <!-- Gauge -->
+
+
+    <!-- Divider -->
+
+    <!-- Timeline -->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

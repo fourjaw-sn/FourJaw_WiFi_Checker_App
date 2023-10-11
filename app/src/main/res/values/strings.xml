@@ -1,0 +1,46 @@
+<resources>
+    <!-- App name -->
+    <string name="app_name">FourJaw Wifi Checker</string>
+
+    <!-- Heading -->
+    <string name="Heading_text">FourJaw WiFi Checker</string>
+    <string name="Heading_logo_content_description">FourJaw Logo</string>
+
+    <!-- Wifi details -->
+    <string name="Wifi_details_heading_text">Connected Network</string>
+    <string name="Wifi_details_properties_text">Wifi enabled: \nNetwork SSID: \nAccess Point MAC Address: \nFrequency Band:</string>
+    <string name="Wifi_details_values_placeholder">Wifi details</string>
+    <string name="Wifi_details_values">%1$s \n%2$s \n%3$s \n%4$s</string>
+
+    <!-- Other Networks -->
+    <string name="Other_networks_heading_text">Other Networks</string>
+    <string name="Other_networks_SSID_text">SSID: </string>
+    <string name="Other_networks_BSSID_text">Access point MAC: </string>
+    <string name="Other_networks_strength_text">Strength: </string>
+    <string name="Other_networks_frequency_text">Frequency: </string>
+
+    <string name="Other_networks_table_Strength_text"> \u0020\u0020\u0020\u0020 %1$s</string>
+
+    <!-- Connection Quality -->
+    <string name="Connection_Quality_heading_text">Connection Quality</string>
+    <string name="Connection_quality_good_percentage_text">%1$d %%</string>
+    <string name="connection_Quality_average_percentage_text">%1$d %%</string>
+    <string name="connection_Quality_bad_percentage_text">%1$d %%</string>
+    <string name="Connection_Quality_outcome_waiting_text">"Waiting for more data"</string>
+    <string name="Connection_Quality_outcome_good_text">FourJaw should work well on this network</string>
+    <string name="Connection_Quality_outcome_average_text">FourJaw will run, but you may see some stability issues</string>
+    <string name="Connection_Quality_outcome_bad_text">FourJaw will not work reliably, please speak to your IT Team</string>
+    <string name="Connection_quality_time_text">Since - %1$s</string>
+
+
+    <!-- Timeline -->
+    <string name="Timeline_heading_text">Timeline</string>
+    <string name="Timeline_legend_text_1">Recorded Strength</string>
+    <string name="Timeline_legend_text_2">Average Strength</string>
+
+    <string name="Timeline_current_strength_text">Current Strength: %1$d decibels</string>
+
+    <!-- Overlay text -->
+    <string name="minimum_results_time_text">Time remaining: %1$d seconds </string>
+
+</resources>

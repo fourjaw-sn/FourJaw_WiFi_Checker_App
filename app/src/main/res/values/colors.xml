@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="RED">#F44336</color>
+    <color name="Orange">#FF9800</color>
+    <color name="Purple">#673AB7</color>
+    <color name="green">#4CAF50</color>
+    <color name="light_blue">#00BCD4</color>
+    <color name="FourJaw_purple">#6D2DD4</color>
+    <color name="FourJaw_light_purple">#AF60FB</color>
+    <color name="Average_orange">#F9A908</color>
+    <color name="graph_red">#80B00215</color>
+    <color name="graph_orange">#80F89D13</color>
+    <color name="graph_green">#80539719</color>
+    <color name="fourjaw_red">#B00215</color>
+    <color name="fourjaw_orange">#F89D13</color>
+    <color name="fourjaw_green">#539719</color>
+    <color name="transparent">#00F44336</color>
+    <color name="text_black">#12141C</color>
+
+</resources>
