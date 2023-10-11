@@ -50,7 +50,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     private final Handler mHandler = new Handler();
-    private Button button;
+    private Button Reset_test_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
         checkPermission();
 
         //Enable reset button to reset the data and restart the wifi checking loop
-        button = findViewById(R.id.Reset_test_button);
-        button.setOnClickListener(view -> {
+        Reset_test_button = findViewById(R.id.Reset_test_button);
+        Reset_test_button.setOnClickListener(view -> {
             Reset_data.setData("true");
             //System.out.println(Reset_data.getData());
             mHandler.removeCallbacks(Wifi_scan_loop);
@@ -622,7 +622,7 @@ public class MainActivity extends AppCompatActivity {
             TextView Minimum_results_box = findViewById(R.id.Minimum_results_box);
             TextView Minimum_results_box_text = findViewById(R.id.Minimum_results_text);
             TextView minimum_results_time_text = findViewById(R.id.minimum_results_time_text);
-            button = findViewById(R.id.Reset_test_button);
+            Reset_test_button = findViewById(R.id.Reset_test_button);
 
             if (wifi_strength_array.size() < 6) {
                 Connection_Quality_outcome_text.setText(getString(R.string.Connection_Quality_outcome_waiting_text));
@@ -632,7 +632,7 @@ public class MainActivity extends AppCompatActivity {
                 Minimum_results_box.setVisibility(View.VISIBLE);
                 Minimum_results_box_text.setVisibility(View.VISIBLE);
                 minimum_results_time_text.setVisibility(View.VISIBLE);
-                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.purple_box_disabled, null));
+                Reset_test_button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.purple_box_disabled, null));
                 int time_remaining = 30 - (wifi_strength_array.size())*5;
                 minimum_results_time_text.setText(getString(R.string.minimum_results_time_text, time_remaining));
 
@@ -640,7 +640,7 @@ public class MainActivity extends AppCompatActivity {
                 Minimum_results_box.setVisibility(View.INVISIBLE);
                 Minimum_results_box_text.setVisibility(View.INVISIBLE);
                 minimum_results_time_text.setVisibility(View.INVISIBLE);
-                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.purple_box, null));
+                Reset_test_button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.purple_box, null));
 
                 if (bad_percentage_int > 10) {
                     Connection_Quality_outcome_text.setText(getString(R.string.Connection_Quality_outcome_bad_text));
@@ -690,8 +690,8 @@ public class MainActivity extends AppCompatActivity {
         TextView Wifi_details_values = findViewById(R.id.Wifi_details_values);
         Wifi_details_values.setText(getString(R.string.Wifi_details_values, enabled, SSID, BSSID, Frequency));
 
-        button = findViewById(R.id.Reset_test_button);
-        button.setOnClickListener(view -> {
+        Reset_test_button = findViewById(R.id.Reset_test_button);
+        Reset_test_button.setOnClickListener(view -> {
             Reset_data.setData("true");
             System.out.println(Reset_data.getData());
             mHandler.removeCallbacks(Wifi_scan_loop);
