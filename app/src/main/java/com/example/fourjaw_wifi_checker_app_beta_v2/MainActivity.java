@@ -43,6 +43,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -246,8 +248,13 @@ public class MainActivity extends AppCompatActivity {
             //Run available networks scan and return info
             wifiManager.startScan();
 
-            List<ScanResult> availNetworks = wifiManager.getScanResults();
+            //List<ScanResult> availNetworks = wifiManager.getScanResults();
 
+
+            List<ScanResult> availNetworks = wifiManager.getScanResults();
+            System.out.println("list" + availNetworks);
+            Collections.sort(availNetworks,new Signal_Strength_Comparator());
+            System.out.println("sorted list" + availNetworks);
 
             // Other networks section
 
@@ -742,5 +749,12 @@ public class MainActivity extends AppCompatActivity {
             mHandler.removeCallbacks(Wifi_scan_loop);
             Wifi_scan_loop.run();
         });
+    }
+
+    class Signal_Strength_Comparator implements Comparator<ScanResult> {
+        @Override
+        public int compare(ScanResult scan0, ScanResult scan1) {
+            return scan1.level-scan0.level;
+        }
     }
 }

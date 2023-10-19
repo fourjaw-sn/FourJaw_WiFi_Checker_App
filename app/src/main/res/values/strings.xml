@@ -1,6 +1,6 @@
 <resources>
     <!-- App name -->
-    <string name="app_name">FourJaw WiFi Checker</string>
+    <string name="app_name">WiFi Checker</string>
 
     <!-- Heading -->
     <string name="Heading_text">FourJaw WiFi Checker</string>
