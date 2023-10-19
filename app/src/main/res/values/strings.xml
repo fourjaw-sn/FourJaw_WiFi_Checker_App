@@ -1,19 +1,19 @@
 <resources>
     <!-- App name -->
-    <string name="app_name">FourJaw Wifi Checker</string>
+    <string name="app_name">FourJaw WiFi Checker</string>
 
     <!-- Heading -->
     <string name="Heading_text">FourJaw WiFi Checker</string>
     <string name="Heading_logo_content_description">FourJaw Logo</string>
 
-    <!-- Wifi details -->
+    <!-- WiFi details -->
     <string name="Wifi_details_heading_text">Connected Network</string>
-    <string name="Wifi_details_properties_text">Wifi enabled: \nNetwork SSID: \nAccess Point MAC Address: \nFrequency Band:</string>
-    <string name="Wifi_details_values_placeholder">Wifi details</string>
+    <string name="Wifi_details_properties_text">WiFi enabled: \nNetwork SSID: \nAccess Point MAC Address: \nFrequency Band:</string>
+    <string name="Wifi_details_values_placeholder">WiFi details</string>
     <string name="Wifi_details_values">%1$s \n%2$s \n%3$s \n%4$s</string>
 
     <!-- Other Networks -->
-    <string name="Other_networks_heading_text">Other Networks</string>
+    <string name="Other_networks_heading_text">Nearby Networks</string>
     <string name="Other_networks_SSID_text">SSID: </string>
     <string name="Other_networks_BSSID_text">Access point MAC: </string>
     <string name="Other_networks_strength_text">Strength: </string>

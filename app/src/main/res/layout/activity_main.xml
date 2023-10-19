@@ -558,7 +558,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Wifi Strength"
+                android:text="WiFi Strength"
                 android:translationZ="100dp"
                 app:layout_constraintStart_toEndOf="@+id/Timeline_legend_Wifi_strength_icon"
                 app:layout_constraintTop_toTopOf="@+id/Timeline_legend_Wifi_strength_box" />

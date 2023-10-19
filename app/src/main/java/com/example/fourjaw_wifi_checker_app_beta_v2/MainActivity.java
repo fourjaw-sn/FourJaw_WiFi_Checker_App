@@ -10,6 +10,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -20,6 +21,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -39,7 +41,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,9 +70,14 @@ public class MainActivity extends AppCompatActivity {
         String SSID = wifiInfo.getSSID().replace("\"", "");
         String BSSID = wifiInfo.getBSSID();
         String Frequency = "No signal";
-        if ((float) wifiInfo.getFrequency() >= 0) {
-            final DecimalFormat dfZero = new DecimalFormat("0.0");
-            Frequency = dfZero.format((float) wifiInfo.getFrequency() / 1000) + " GHz";
+        if ((float) wifiInfo.getFrequency() >= 0 && (float) wifiInfo.getFrequency() <= 4000) {
+            Frequency = "2.4 GHz";
+            //final DecimalFormat dfZero = new DecimalFormat("0.0");
+            //Frequency = dfZero.format((float) wifiInfo.getFrequency() / 1000) + " GHz";
+        }else if ((float) wifiInfo.getFrequency() >= 4000){
+            Frequency = "5 GHz";
+        }else if ((float) wifiInfo.getFrequency() >= 6000){
+            Frequency = "6 GHz";
         }
 
         //Set wifi details text to results of scan
@@ -96,6 +102,17 @@ public class MainActivity extends AppCompatActivity {
             Wifi_scan_loop.run();
         });
     }
+    @Override
+    public void onBackPressed() {
+        //your code when back button pressed
+        super.onBackPressed();
+        System.out.println("Back button pressed");
+//        startActivity(new Intent(Intent.CATEGORY_HOME));
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }
+
 
     private void checkPermission() {
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -212,9 +229,14 @@ public class MainActivity extends AppCompatActivity {
             String BSSID = wifiInfo.getBSSID();
 
             String Frequency = "No signal";
-            final DecimalFormat dfZero = new DecimalFormat("0.0");
-            if ((float) wifiInfo.getFrequency() >= 0) {
-                Frequency = dfZero.format((float) wifiInfo.getFrequency() / 1000) + " GHz";
+            if ((float) wifiInfo.getFrequency() >= 0 && (float) wifiInfo.getFrequency() <= 4000) {
+                Frequency = "2.4 GHz";
+                //final DecimalFormat dfZero = new DecimalFormat("0.0");
+                //Frequency = dfZero.format((float) wifiInfo.getFrequency() / 1000) + " GHz";
+            }else if ((float) wifiInfo.getFrequency() >= 4000){
+                Frequency = "5 GHz";
+            }else if ((float) wifiInfo.getFrequency() >= 6000){
+                Frequency = "6 GHz";
             }
 
             //Set wifi details text to results of scan
@@ -264,7 +286,18 @@ public class MainActivity extends AppCompatActivity {
                 }
                 String BSSID_text = availNetworks.get(i).BSSID;
                 int Strength_text = availNetworks.get(i).level;
-                String Frequency_text = (dfZero.format((float) availNetworks.get(i).frequency / 1000) + " GHz");
+
+                //String Frequency_text = (dfZero.format((float) availNetworks.get(i).frequency / 1000) + " GHz");
+                String Frequency_text = null;
+                if ((float) availNetworks.get(i).frequency >= 0 && (float) availNetworks.get(i).frequency <= 4000) {
+                    Frequency_text = "2.4 GHz";
+                }else if ((float) availNetworks.get(i).frequency >= 4000){
+                    Frequency_text = "5 GHz";
+                }else if ((float) availNetworks.get(i).frequency >= 6000){
+                    Frequency_text = "6 GHz";
+                }
+
+
 
                 //Create the table rows
                 tr_head[i] = new TableRow(MainActivity.this);
@@ -276,6 +309,12 @@ public class MainActivity extends AppCompatActivity {
 
                 // Table text settings
                 Typeface table_typeface = ResourcesCompat.getFont(MainActivity.this, R.font.roboto);
+                if (Objects.equals(BSSID_text, BSSID)){
+                    table_typeface = ResourcesCompat.getFont(MainActivity.this, R.font.roboto_bold);
+                    wifi_strength = Strength_text;
+                }
+
+
                 int text_color = ContextCompat.getColor(MainActivity.this, R.color.text_black);
 
                 //SSID properties
@@ -343,6 +382,7 @@ public class MainActivity extends AppCompatActivity {
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.WRAP_CONTENT));
             }
+
 
             //Time section
 
@@ -680,10 +720,15 @@ public class MainActivity extends AppCompatActivity {
         }
         String SSID = wifiInfo.getSSID().replace("\"", "");
         String BSSID = wifiInfo.getBSSID();
-        final DecimalFormat dfZero = new DecimalFormat("0.0");
         String Frequency = "No signal";
-        if ((float) wifiInfo.getFrequency() >= 0) {
-            Frequency = dfZero.format((float) wifiInfo.getFrequency() / 1000);
+        if ((float) wifiInfo.getFrequency() >= 0 && (float) wifiInfo.getFrequency() <= 4000) {
+            Frequency = "2.4 GHz";
+            //final DecimalFormat dfZero = new DecimalFormat("0.0");
+            //Frequency = dfZero.format((float) wifiInfo.getFrequency() / 1000) + " GHz";
+        }else if ((float) wifiInfo.getFrequency() >= 4000){
+            Frequency = "5 GHz";
+        }else if ((float) wifiInfo.getFrequency() >= 6000){
+            Frequency = "6 GHz";
         }
 
         //Set wifi details text to results of scan
