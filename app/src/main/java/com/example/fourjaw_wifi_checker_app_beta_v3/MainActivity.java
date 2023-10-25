@@ -1,4 +1,4 @@
-package com.example.fourjaw_wifi_checker_app_beta_v2;
+package com.example.fourjaw_wifi_checker_app_beta_v3;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -21,7 +21,6 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;

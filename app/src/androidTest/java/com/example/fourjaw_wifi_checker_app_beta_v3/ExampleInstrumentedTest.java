@@ -1,4 +1,4 @@
-package com.example.fourjaw_wifi_checker_app_beta_v2;
+package com.example.fourjaw_wifi_checker_app_beta_v3;
 
 import android.content.Context;
 

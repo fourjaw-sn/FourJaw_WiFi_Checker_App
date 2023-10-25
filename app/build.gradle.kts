@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.fourjaw_wifi_checker_app_beta_v2"
+    namespace = "com.example.fourjaw_wifi_checker_app_beta_v3"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.fourjaw_wifi_checker_app_beta_v2"
+        applicationId = "com.example.fourjaw_wifi_checker_app_beta_v3"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
