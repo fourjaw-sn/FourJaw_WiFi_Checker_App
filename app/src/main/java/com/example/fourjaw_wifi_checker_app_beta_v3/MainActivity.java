@@ -42,6 +42,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -262,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
         final ArrayList<Integer> wifi_strength_array = new ArrayList<>();
         String reference_timestamp = null;
         String display_reference_timestamp_date = null;
+        Comparable<String> reference_date = null;
         int reference_timestamp_total_seconds = 0;
 
         @Override
@@ -282,7 +284,6 @@ public class MainActivity extends AppCompatActivity {
             Button Wifi_settings_button = findViewById(R.id.wifi_settings_button);
 
 
-
             Wifi_details_values.setVisibility(View.VISIBLE);
             Wifi_details_properties_text.setVisibility(View.VISIBLE);
             Wifi_settings_button.setVisibility(View.INVISIBLE);
@@ -290,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
             No_connection_warning_text.setVisibility(View.INVISIBLE);
             No_connection_warning_text_top.setVisibility(View.INVISIBLE);
 
-            if (Objects.equals(wifi_strength, -127)){
+            if (Objects.equals(wifi_strength, -127)) {
                 Wifi_details_values.setVisibility(View.INVISIBLE);
                 Wifi_details_properties_text.setVisibility(View.INVISIBLE);
                 Wifi_settings_button.setVisibility(View.VISIBLE);
@@ -303,19 +304,20 @@ public class MainActivity extends AppCompatActivity {
 
                         //Ensure app name change in manifest file queries section too
                         PackageManager pm = MainActivity.this.getPackageManager();
-                        if(isPackageInstalled("com.example.wifi_settings", pm)) {
+                        if (isPackageInstalled("com.example.wifi_settings", pm)) {
                             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.example.wifi_settings");
                             startActivity(launchIntent);
                         } else if (isPackageInstalled("com.android.settings", pm)) {
                             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.settings");
                             startActivity(launchIntent);
-                        } else{
+                        } else {
                             Toast.makeText(MainActivity.this, "WiFi Settings App not installed, please contact FourJaw support",
                                     Toast.LENGTH_LONG).show();
                         }
 
-                    }});
-            }else{
+                    }
+                });
+            } else {
                 //Set connected wifi properties with results of wifi scan
                 String enabled = "False";
                 if (wifiManager.isWifiEnabled()) {
@@ -328,9 +330,9 @@ public class MainActivity extends AppCompatActivity {
                     Frequency = "2.4 GHz";
                     //final DecimalFormat dfZero = new DecimalFormat("0.0");
                     //Frequency = dfZero.format((float) wifiInfo.getFrequency() / 1000) + " GHz";
-                }else if ((float) wifiInfo.getFrequency() >= 4000){
+                } else if ((float) wifiInfo.getFrequency() >= 4000) {
                     Frequency = "5 GHz";
-                }else if ((float) wifiInfo.getFrequency() >= 6000){
+                } else if ((float) wifiInfo.getFrequency() >= 6000) {
                     Frequency = "6 GHz";
                 }
 
@@ -374,7 +376,7 @@ public class MainActivity extends AppCompatActivity {
 
             List<ScanResult> availNetworks = wifiManager.getScanResults();
             //System.out.println("list" + availNetworks);
-            Collections.sort(availNetworks,new Signal_Strength_Comparator());
+            Collections.sort(availNetworks, new Signal_Strength_Comparator());
             //System.out.println("sorted list" + availNetworks);
 
             // Other networks section
@@ -385,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
             if (Objects.equals(BSSID, "02:00:00:00:00:00")) {
                 Location_services_warning_box.setVisibility(View.VISIBLE);
                 Location_services_warning_text.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 Location_services_warning_box.setVisibility(View.INVISIBLE);
                 Location_services_warning_text.setVisibility(View.INVISIBLE);
             }
@@ -419,12 +421,11 @@ public class MainActivity extends AppCompatActivity {
                 String Frequency_text = null;
                 if ((float) availNetworks.get(i).frequency >= 0 && (float) availNetworks.get(i).frequency <= 4000) {
                     Frequency_text = "2.4 GHz";
-                }else if ((float) availNetworks.get(i).frequency >= 4000){
+                } else if ((float) availNetworks.get(i).frequency >= 4000) {
                     Frequency_text = "5 GHz";
-                }else if ((float) availNetworks.get(i).frequency >= 6000){
+                } else if ((float) availNetworks.get(i).frequency >= 6000) {
                     Frequency_text = "6 GHz";
                 }
-
 
 
                 //Create the table rows
@@ -437,7 +438,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Table text settings
                 Typeface table_typeface = ResourcesCompat.getFont(MainActivity.this, R.font.roboto);
-                if (Objects.equals(BSSID_text, BSSID)){
+                if (Objects.equals(BSSID_text, BSSID)) {
                     table_typeface = ResourcesCompat.getFont(MainActivity.this, R.font.roboto_bold);
                     wifi_strength = Strength_text;
                 }
@@ -532,10 +533,18 @@ public class MainActivity extends AppCompatActivity {
             int total_seconds = int_hours * 3600 + int_minutes * 60 + int_seconds;
             //System.out.println("total_seconds: " + total_seconds);
 
+            SimpleDateFormat date_day_format = new SimpleDateFormat("dd", Locale.ENGLISH);
+            Comparable<String> current_date = date_day_format.format(new Date());
+
             //System.out.println("reference_timestamp: " + reference_timestamp);
-            if (reference_timestamp == null){
+
+
+            if (reference_timestamp == null) {
                 SimpleDateFormat time_format = new SimpleDateFormat("dd/MM/yy HH:mm", Locale.ENGLISH);
                 reference_timestamp = time_format.format(new Date());
+
+                reference_date = date_day_format.format(new Date());
+                System.out.println("reference_date: " + reference_date);
 
                 SimpleDateFormat reference_timestamp_hours = new SimpleDateFormat("HH", Locale.ENGLISH);
                 String reference_timestamp_hoursInString = reference_timestamp_hours.format(new Date());
@@ -555,32 +564,32 @@ public class MainActivity extends AppCompatActivity {
 
             //Reset button section
 
-            if (Objects.equals(Reset_data.getData(), "true")){
+            if (Objects.equals(Reset_data.getData(), "true")) {
                 graph_data_entries.clear();
                 wifi_strength_array.clear();
                 Reset_data.setData("false");
                 reference_timestamp = null;
-                network_change_array .clear();
+                network_change_array.clear();
                 network_change_timestamp_array.clear();
                 access_point_change_array.clear();
                 access_point_change_timestamp_array.clear();
             }
 
-            //Total amount of seconds in a day is 86400
-            if (total_seconds >= 86370 || total_seconds <= 30){
-                graph_data_entries.clear();
-                wifi_strength_array.clear();
-                reference_timestamp = null;
-                network_change_array .clear();
-                network_change_timestamp_array.clear();
-                access_point_change_array.clear();
-                access_point_change_timestamp_array.clear();
-            }
+//            //Total amount of seconds in a day is 86400
+//            if (total_seconds >= 86370 || total_seconds <= 30) {
+//                graph_data_entries.clear();
+//                wifi_strength_array.clear();
+//                reference_timestamp = null;
+//                network_change_array.clear();
+//                network_change_timestamp_array.clear();
+//                access_point_change_array.clear();
+//                access_point_change_timestamp_array.clear();
+//            }
 
-            int time_test = total_seconds - reference_timestamp_total_seconds;
-            //System.out.println("time_test: " + time_test);
+            System.out.println("current_date "+ current_date);
+            System.out.println("reference_date "+ reference_date);
 
-            if (time_test < 0) {
+            if (!current_date.equals(reference_date)) {
                 graph_data_entries.clear();
                 wifi_strength_array.clear();
                 reference_timestamp = null;
@@ -590,6 +599,19 @@ public class MainActivity extends AppCompatActivity {
                 access_point_change_timestamp_array.clear();
                 //System.out.println("time reset triggered");
             }
+
+//            int time_test = total_seconds - reference_timestamp_total_seconds;
+//            System.out.println("time_test: " + time_test);
+//            if (time_test < 0) {
+//                graph_data_entries.clear();
+//                wifi_strength_array.clear();
+//                reference_timestamp = null;
+//                network_change_array.clear();
+//                network_change_timestamp_array.clear();
+//                access_point_change_array.clear();
+//                access_point_change_timestamp_array.clear();
+//                //System.out.println("time reset triggered");
+//            }
 
             //Chart section
 
@@ -601,7 +623,7 @@ public class MainActivity extends AppCompatActivity {
             }
             LineDataSet wifi_line_data_set = new LineDataSet(graph_data_entries, "Line DataSet");
 
-            System.out.println("graph_data_entries: " + graph_data_entries);
+            //System.out.println("graph_data_entries: " + graph_data_entries);
 
             //line properties
             wifi_line_data_set.setDrawFilled(false);
@@ -752,9 +774,9 @@ public class MainActivity extends AppCompatActivity {
 
             TextView Timeline_current_strength_text = findViewById(R.id.Timeline_current_strength_text);
 
-            if (Objects.equals(wifi_strength, -127)){
+            if (Objects.equals(wifi_strength, -127)) {
                 Timeline_current_strength_text.setText(getString(R.string.Timeline_current_strength_no_connection_text));
-            }else{
+            } else {
                 Timeline_current_strength_text.setText(getString(R.string.Timeline_current_strength_text, wifi_strength));
             }
 
@@ -813,10 +835,10 @@ public class MainActivity extends AppCompatActivity {
                 Minimum_results_box_text.setVisibility(View.VISIBLE);
                 minimum_results_time_text.setVisibility(View.VISIBLE);
                 Reset_test_button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.purple_box_disabled, null));
-                int time_remaining = 30 - (wifi_strength_array.size())*5;
+                int time_remaining = 30 - (wifi_strength_array.size()) * 5;
                 minimum_results_time_text.setText(getString(R.string.minimum_results_time_text, time_remaining));
 
-            }else{
+            } else {
                 Minimum_results_box.setVisibility(View.INVISIBLE);
                 Minimum_results_box_text.setVisibility(View.INVISIBLE);
                 minimum_results_time_text.setVisibility(View.INVISIBLE);
@@ -827,12 +849,12 @@ public class MainActivity extends AppCompatActivity {
                     connection_Quality_Icon_box.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.round_red, null));
                     Connection_Quality_Icon.setImageResource(R.drawable.baseline_clear_24);
 
-                }else if (average_percentage_int > 20) {
+                } else if (average_percentage_int > 20) {
                     Connection_Quality_outcome_text.setText(R.string.Connection_Quality_outcome_average_text);
                     connection_Quality_Icon_box.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.round_orange, null));
                     Connection_Quality_Icon.setImageResource(R.drawable.baseline_horizontal_rule_24);
 
-                }else{
+                } else {
                     Connection_Quality_outcome_text.setText(R.string.Connection_Quality_outcome_good_text);
                     connection_Quality_Icon_box.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.round_green, null));
                     Connection_Quality_Icon.setImageResource(R.drawable.baseline_done_24);
@@ -840,7 +862,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             TextView Connection_quality_time_text = findViewById(R.id.Connection_quality_time_text);
-            Connection_quality_time_text.setText(getString(R.string.Connection_quality_time_text, reference_timestamp ));
+            Connection_quality_time_text.setText(getString(R.string.Connection_quality_time_text, reference_timestamp));
         }
     };
 
