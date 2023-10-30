@@ -34,15 +34,12 @@ import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-//import com.github.mikephil.charting.data.BarData;
-//import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -262,7 +259,6 @@ public class MainActivity extends AppCompatActivity {
         final ArrayList<Integer> access_point_change_timestamp_array = new ArrayList<>();
         final ArrayList<Integer> wifi_strength_array = new ArrayList<>();
         String reference_timestamp = null;
-        String display_reference_timestamp_date = null;
         Comparable<String> reference_date = null;
         int reference_timestamp_total_seconds = 0;
 
