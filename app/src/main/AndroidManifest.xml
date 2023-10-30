@@ -36,4 +36,8 @@
             android:resource="@array/preloaded_fonts" />
     </application>
 
+    <queries>
+        <!-- Explicit apps you know in advance about: -->
+        <package android:name="com.example.wifi_settings"/>
+    </queries>
 </manifest>

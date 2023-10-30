@@ -7,10 +7,12 @@
     <string name="Heading_logo_content_description">FourJaw Logo</string>
 
     <!-- WiFi details -->
-    <string name="Wifi_details_heading_text">Connected Network</string>
+    <string name="Wifi_details_heading_text">Network Connection</string>
     <string name="Wifi_details_properties_text">WiFi enabled: \nNetwork SSID: \nAccess Point MAC Address: \nFrequency Band:</string>
     <string name="Wifi_details_values_placeholder">WiFi details</string>
     <string name="Wifi_details_values">%1$s \n%2$s \n%3$s \n%4$s</string>
+    <string name="No_connection_warning_text_top">Not connected to any network.</string>
+    <string name="No_connection_warning_text">Please visit the WiFi Settings App to check that WiFi is enabled and to connect to a network.</string>
 
     <!-- Other Networks -->
     <string name="Other_networks_heading_text">Nearby Networks</string>
@@ -30,7 +32,7 @@
     <string name="Connection_Quality_outcome_good_text">FourJaw should work well on this network</string>
     <string name="Connection_Quality_outcome_average_text">FourJaw will run, but you may see some stability issues</string>
     <string name="Connection_Quality_outcome_bad_text">FourJaw will not work reliably, please speak to your IT Team</string>
-    <string name="Connection_quality_time_text">Since - %1$s</string>
+    <string name="Connection_quality_time_text">Since: %1$s</string>
 
 
     <!-- Timeline -->
@@ -39,8 +41,11 @@
     <string name="Timeline_legend_text_2">Average Strength</string>
 
     <string name="Timeline_current_strength_text">Current Strength: %1$d decibels</string>
+    <string name="Timeline_current_strength_no_connection_text">Current Strength: No Connection</string>
 
     <!-- Overlay text -->
     <string name="minimum_results_time_text">Time remaining: %1$d seconds </string>
+    <string name="Minimum_results_text">Testing WiFi strength, please wait for more data.</string>
+
 
 </resources>

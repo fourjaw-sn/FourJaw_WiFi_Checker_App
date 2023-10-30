@@ -130,10 +130,12 @@
         android:textColor="#12141c"
         android:textSize="20dp"
         android:translationZ="100dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/Wifi_details_box"
         app:layout_constraintStart_toStartOf="@+id/Wifi_details_box"
         app:layout_constraintTop_toTopOf="@+id/Wifi_details_box"
-        tools:ignore="SpUsage,TextSizeCheck" />
+        tools:ignore="SpUsage,TextSizeCheck"
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/Wifi_details_values"
@@ -148,14 +150,89 @@
         android:textColor="#12141c"
         android:textSize="20dp"
         android:translationZ="100dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/Wifi_details_properties_text"
         app:layout_constraintStart_toEndOf="@+id/Wifi_details_properties_text"
         app:layout_constraintTop_toTopOf="@+id/Wifi_details_properties_text"
-        tools:ignore="SpUsage,TextSizeCheck" />
+        tools:ignore="SpUsage,TextSizeCheck"
+        tools:visibility="gone" />
 
     <!-- Other Networks -->
 
     <!-- Gauge -->
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/wifi_settings_button"
+        android:layout_width="120dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/purple_box"
+        android:fontFamily="@font/roboto"
+        android:text="WiFi Settings"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="15dp"
+        android:translationZ="100dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/No_connection_warning_box"
+        app:layout_constraintEnd_toEndOf="@+id/No_connection_warning_box"
+        app:layout_constraintTop_toTopOf="@+id/No_connection_warning_box"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SpUsage,TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/No_connection_warning_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/No_connection_warning_text"
+        android:textAlignment="viewStart"
+        android:textColor="#12141c"
+        android:textSize="15dp"
+        android:translationZ="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Wifi_details_box"
+        app:layout_constraintEnd_toStartOf="@+id/wifi_settings_button"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/No_connection_warning_box"
+        app:layout_constraintTop_toBottomOf="@+id/No_connection_warning_text_top"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/No_connection_warning_text_top"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/No_connection_warning_text_top"
+        android:textAlignment="viewStart"
+        android:textColor="#12141c"
+        android:textSize="15dp"
+        android:translationZ="100dp"
+        app:layout_constraintEnd_toStartOf="@+id/wifi_settings_button"
+        app:layout_constraintStart_toStartOf="@+id/No_connection_warning_box"
+        app:layout_constraintTop_toTopOf="@+id/Wifi_details_box"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/No_connection_warning_box"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/other_networks_orange_box"
+        app:layout_constraintBottom_toBottomOf="@+id/Wifi_details_box"
+        app:layout_constraintEnd_toEndOf="@+id/Wifi_details_box"
+        app:layout_constraintStart_toStartOf="@+id/Wifi_details_box"
+        app:layout_constraintTop_toTopOf="@+id/Wifi_details_box" />
 
     <TextView
         android:id="@+id/Timeline_heading_box"
@@ -584,30 +661,30 @@
 
     <ImageView
         android:id="@+id/Connection_Quality_Icon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
 
         android:layout_marginStart="5dp"
 
         android:layout_marginTop="5dp"
         android:background="@drawable/round"
+        android:importantForAccessibility="no"
         android:translationZ="100dp"
         app:layout_constraintStart_toStartOf="@+id/connection_Quality_Icon_box"
-        app:layout_constraintTop_toTopOf="@+id/connection_Quality_Icon_box"
-        android:importantForAccessibility="no" />
+        app:layout_constraintTop_toTopOf="@+id/connection_Quality_Icon_box" />
 
     <ImageView
         android:id="@+id/connection_Quality_Icon_box"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="30dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="20dp"
 
         android:background="@drawable/round"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="@+id/Connection_Quality_box"
-        app:layout_constraintStart_toStartOf="@+id/Connection_Quality_box"
 
-        android:importantForAccessibility="no" />
+        app:layout_constraintStart_toStartOf="@+id/Connection_Quality_box" />
 
     <TextView
         android:id="@+id/Connection_Quality_outcome_text"
@@ -870,7 +947,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
-        android:text="Testing WiFi Strength please wait for more data"
+        android:text="@string/Minimum_results_text"
         android:textColor="#12141c"
         android:textSize="40dp"
         android:translationZ="210dp"
@@ -881,8 +958,8 @@
         app:layout_constraintStart_toStartOf="@+id/Minimum_results_box"
         app:layout_constraintTop_toTopOf="@+id/Minimum_results_box"
         app:layout_constraintVertical_bias="0.283"
-        tools:visibility="gone"
-        tools:ignore="SpUsage" />
+        tools:ignore="SpUsage"
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/minimum_results_time_text"

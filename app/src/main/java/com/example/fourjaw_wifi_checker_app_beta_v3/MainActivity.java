@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.LimitLine;
@@ -63,27 +64,70 @@ public class MainActivity extends AppCompatActivity {
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 
-        //Set connected wifi properties with results of wifi scan
-        String enabled = "False";
-        if (wifiManager.isWifiEnabled()) {
-            enabled = "True";
-        }
-        String SSID = wifiInfo.getSSID().replace("\"", "");
-        String BSSID = wifiInfo.getBSSID();
-        String Frequency = "No signal";
-        if ((float) wifiInfo.getFrequency() >= 0 && (float) wifiInfo.getFrequency() <= 4000) {
-            Frequency = "2.4 GHz";
-            //final DecimalFormat dfZero = new DecimalFormat("0.0");
-            //Frequency = dfZero.format((float) wifiInfo.getFrequency() / 1000) + " GHz";
-        }else if ((float) wifiInfo.getFrequency() >= 4000){
-            Frequency = "5 GHz";
-        }else if ((float) wifiInfo.getFrequency() >= 6000){
-            Frequency = "6 GHz";
+        int wifi_strength = wifiInfo.getRssi();
+        TextView Wifi_details_values = findViewById(R.id.Wifi_details_values);
+        TextView Wifi_details_properties_text = findViewById(R.id.Wifi_details_properties_text);
+        TextView No_connection_warning_box = findViewById(R.id.No_connection_warning_box);
+        TextView No_connection_warning_text = findViewById(R.id.No_connection_warning_text);
+        TextView No_connection_warning_text_top = findViewById(R.id.No_connection_warning_text_top);
+        Button Wifi_settings_button = findViewById(R.id.wifi_settings_button);
+
+
+        Wifi_details_values.setVisibility(View.VISIBLE);
+        Wifi_details_properties_text.setVisibility(View.VISIBLE);
+        Wifi_settings_button.setVisibility(View.INVISIBLE);
+        No_connection_warning_box.setVisibility(View.INVISIBLE);
+        No_connection_warning_text.setVisibility(View.INVISIBLE);
+        No_connection_warning_text_top.setVisibility(View.INVISIBLE);
+
+        if (Objects.equals(wifi_strength, -127)){
+            Wifi_details_values.setVisibility(View.INVISIBLE);
+            Wifi_details_properties_text.setVisibility(View.INVISIBLE);
+            Wifi_settings_button.setVisibility(View.VISIBLE);
+            No_connection_warning_box.setVisibility(View.VISIBLE);
+            No_connection_warning_text.setVisibility(View.VISIBLE);
+            No_connection_warning_text_top.setVisibility(View.VISIBLE);
+
+            Wifi_settings_button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    //Ensure app name change in manifest file queries section too
+                    PackageManager pm = MainActivity.this.getPackageManager();
+                    if(isPackageInstalled("com.example.wifi_settings", pm)) {
+                        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.example.wifi_settings");
+                        startActivity(launchIntent);
+                    } else if (isPackageInstalled("com.android.settings", pm)) {
+                        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.settings");
+                        startActivity(launchIntent);
+                    } else{
+                        Toast.makeText(MainActivity.this, "WiFi Settings App not installed, please contact FourJaw support",
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                }});
+        }else{
+            //Set connected wifi properties with results of wifi scan
+            String enabled = "False";
+            if (wifiManager.isWifiEnabled()) {
+                enabled = "True";
+            }
+            String SSID = wifiInfo.getSSID().replace("\"", "");
+            String BSSID = wifiInfo.getBSSID();
+            String Frequency = "No signal";
+            if ((float) wifiInfo.getFrequency() >= 0 && (float) wifiInfo.getFrequency() <= 4000) {
+                Frequency = "2.4 GHz";
+                //final DecimalFormat dfZero = new DecimalFormat("0.0");
+                //Frequency = dfZero.format((float) wifiInfo.getFrequency() / 1000) + " GHz";
+            }else if ((float) wifiInfo.getFrequency() >= 4000){
+                Frequency = "5 GHz";
+            }else if ((float) wifiInfo.getFrequency() >= 6000){
+                Frequency = "6 GHz";
+            }
+
+            //Set wifi details text to results of scan
+            Wifi_details_values.setText(getString(R.string.Wifi_details_values, enabled, SSID, BSSID, Frequency));
         }
 
-        //Set wifi details text to results of scan
-        TextView Wifi_details_values = findViewById(R.id.Wifi_details_values);
-        Wifi_details_values.setText(getString(R.string.Wifi_details_values, enabled, SSID, BSSID, Frequency));
 
         //Stop existing loops
         mHandler.removeCallbacks(Wifi_scan_loop);
@@ -107,11 +151,20 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         //your code when back button pressed
         super.onBackPressed();
-        System.out.println("Back button pressed");
+        //System.out.println("Back button pressed");
 //        startActivity(new Intent(Intent.CATEGORY_HOME));
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         startActivity(intent);
+    }
+
+    private boolean isPackageInstalled(String packageName, PackageManager packageManager) {
+        try {
+            packageManager.getPackageInfo(packageName, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 
 
@@ -208,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
         final ArrayList<Integer> access_point_change_timestamp_array = new ArrayList<>();
         final ArrayList<Integer> wifi_strength_array = new ArrayList<>();
         String reference_timestamp = null;
+        String display_reference_timestamp_date = null;
         int reference_timestamp_total_seconds = 0;
 
         @Override
@@ -216,33 +270,101 @@ public class MainActivity extends AppCompatActivity {
             //Delay time between loop
             mHandler.postDelayed(this, 5000);
 
-            //Run wifi scan and return connection info
             WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 
-            //Set connected wifi properties with results of wifi scan
             int wifi_strength = wifiInfo.getRssi();
-            String enabled = "False";
-            if (wifiManager.isWifiEnabled()) {
-                enabled = "True";
+            TextView Wifi_details_values = findViewById(R.id.Wifi_details_values);
+            TextView Wifi_details_properties_text = findViewById(R.id.Wifi_details_properties_text);
+            TextView No_connection_warning_box = findViewById(R.id.No_connection_warning_box);
+            TextView No_connection_warning_text = findViewById(R.id.No_connection_warning_text);
+            TextView No_connection_warning_text_top = findViewById(R.id.No_connection_warning_text_top);
+            Button Wifi_settings_button = findViewById(R.id.wifi_settings_button);
+
+
+
+            Wifi_details_values.setVisibility(View.VISIBLE);
+            Wifi_details_properties_text.setVisibility(View.VISIBLE);
+            Wifi_settings_button.setVisibility(View.INVISIBLE);
+            No_connection_warning_box.setVisibility(View.INVISIBLE);
+            No_connection_warning_text.setVisibility(View.INVISIBLE);
+            No_connection_warning_text_top.setVisibility(View.INVISIBLE);
+
+            if (Objects.equals(wifi_strength, -127)){
+                Wifi_details_values.setVisibility(View.INVISIBLE);
+                Wifi_details_properties_text.setVisibility(View.INVISIBLE);
+                Wifi_settings_button.setVisibility(View.VISIBLE);
+                No_connection_warning_box.setVisibility(View.VISIBLE);
+                No_connection_warning_text.setVisibility(View.VISIBLE);
+                No_connection_warning_text_top.setVisibility(View.VISIBLE);
+
+                Wifi_settings_button.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+
+                        //Ensure app name change in manifest file queries section too
+                        PackageManager pm = MainActivity.this.getPackageManager();
+                        if(isPackageInstalled("com.example.wifi_settings", pm)) {
+                            Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.example.wifi_settings");
+                            startActivity(launchIntent);
+                        } else if (isPackageInstalled("com.android.settings", pm)) {
+                            Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.settings");
+                            startActivity(launchIntent);
+                        } else{
+                            Toast.makeText(MainActivity.this, "WiFi Settings App not installed, please contact FourJaw support",
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+                    }});
+            }else{
+                //Set connected wifi properties with results of wifi scan
+                String enabled = "False";
+                if (wifiManager.isWifiEnabled()) {
+                    enabled = "True";
+                }
+                String SSID = wifiInfo.getSSID().replace("\"", "");
+                String BSSID = wifiInfo.getBSSID();
+                String Frequency = "No signal";
+                if ((float) wifiInfo.getFrequency() >= 0 && (float) wifiInfo.getFrequency() <= 4000) {
+                    Frequency = "2.4 GHz";
+                    //final DecimalFormat dfZero = new DecimalFormat("0.0");
+                    //Frequency = dfZero.format((float) wifiInfo.getFrequency() / 1000) + " GHz";
+                }else if ((float) wifiInfo.getFrequency() >= 4000){
+                    Frequency = "5 GHz";
+                }else if ((float) wifiInfo.getFrequency() >= 6000){
+                    Frequency = "6 GHz";
+                }
+
+                //Set wifi details text to results of scan
+                Wifi_details_values.setText(getString(R.string.Wifi_details_values, enabled, SSID, BSSID, Frequency));
             }
+
+//            //Run wifi scan and return connection info
+//            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+//
+//            //Set connected wifi properties with results of wifi scan
+//            int wifi_strength = wifiInfo.getRssi();
+//            String enabled = "False";
+//            if (wifiManager.isWifiEnabled()) {
+//                enabled = "True";
+//            }
             String SSID = wifiInfo.getSSID().replace("\"", "");
             String BSSID = wifiInfo.getBSSID();
-
-            String Frequency = "No signal";
-            if ((float) wifiInfo.getFrequency() >= 0 && (float) wifiInfo.getFrequency() <= 4000) {
-                Frequency = "2.4 GHz";
-                //final DecimalFormat dfZero = new DecimalFormat("0.0");
-                //Frequency = dfZero.format((float) wifiInfo.getFrequency() / 1000) + " GHz";
-            }else if ((float) wifiInfo.getFrequency() >= 4000){
-                Frequency = "5 GHz";
-            }else if ((float) wifiInfo.getFrequency() >= 6000){
-                Frequency = "6 GHz";
-            }
-
-            //Set wifi details text to results of scan
-            TextView Wifi_details_values = findViewById(R.id.Wifi_details_values);
-            Wifi_details_values.setText(getString(R.string.Wifi_details_values, enabled, SSID, BSSID, Frequency));
+//
+//            String Frequency = "No signal";
+//            if ((float) wifiInfo.getFrequency() >= 0 && (float) wifiInfo.getFrequency() <= 4000) {
+//                Frequency = "2.4 GHz";
+//                //final DecimalFormat dfZero = new DecimalFormat("0.0");
+//                //Frequency = dfZero.format((float) wifiInfo.getFrequency() / 1000) + " GHz";
+//            }else if ((float) wifiInfo.getFrequency() >= 4000){
+//                Frequency = "5 GHz";
+//            }else if ((float) wifiInfo.getFrequency() >= 6000){
+//                Frequency = "6 GHz";
+//            }
+//
+//            //Set wifi details text to results of scan
+//            TextView Wifi_details_values = findViewById(R.id.Wifi_details_values);
+//            Wifi_details_values.setText(getString(R.string.Wifi_details_values, enabled, SSID, BSSID, Frequency));
 
             //Run available networks scan and return info
             wifiManager.startScan();
@@ -251,9 +373,9 @@ public class MainActivity extends AppCompatActivity {
 
 
             List<ScanResult> availNetworks = wifiManager.getScanResults();
-            System.out.println("list" + availNetworks);
+            //System.out.println("list" + availNetworks);
             Collections.sort(availNetworks,new Signal_Strength_Comparator());
-            System.out.println("sorted list" + availNetworks);
+            //System.out.println("sorted list" + availNetworks);
 
             // Other networks section
 
@@ -412,9 +534,8 @@ public class MainActivity extends AppCompatActivity {
 
             //System.out.println("reference_timestamp: " + reference_timestamp);
             if (reference_timestamp == null){
-                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
-                reference_timestamp = dateFormat.format(new Date());
-
+                SimpleDateFormat time_format = new SimpleDateFormat("dd/MM/yy HH:mm", Locale.ENGLISH);
+                reference_timestamp = time_format.format(new Date());
 
                 SimpleDateFormat reference_timestamp_hours = new SimpleDateFormat("HH", Locale.ENGLISH);
                 String reference_timestamp_hoursInString = reference_timestamp_hours.format(new Date());
@@ -430,7 +551,6 @@ public class MainActivity extends AppCompatActivity {
 
                 reference_timestamp_total_seconds = reference_timestamp_int_hours * 3600 + reference_timestamp_int_minutes * 60 + reference_timestamp_int_seconds;
                 //System.out.println("reference_timestamp total_seconds: " + reference_timestamp_total_seconds);
-
             }
 
             //Reset button section
@@ -447,7 +567,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             //Total amount of seconds in a day is 86400
-            if (total_seconds >= 86100 || total_seconds <= 300){
+            if (total_seconds >= 86370 || total_seconds <= 30){
                 graph_data_entries.clear();
                 wifi_strength_array.clear();
                 reference_timestamp = null;
@@ -476,8 +596,12 @@ public class MainActivity extends AppCompatActivity {
             CombinedChart mChart = findViewById(R.id.Timeline);
 
             //Initialising line chart data
-            graph_data_entries.add(new Entry(total_seconds, wifi_strength));
+            if (reference_timestamp != null) {
+                graph_data_entries.add(new Entry(total_seconds, wifi_strength));
+            }
             LineDataSet wifi_line_data_set = new LineDataSet(graph_data_entries, "Line DataSet");
+
+            System.out.println("graph_data_entries: " + graph_data_entries);
 
             //line properties
             wifi_line_data_set.setDrawFilled(false);
@@ -545,62 +669,64 @@ public class MainActivity extends AppCompatActivity {
                 xAxis.setGranularity(1f);
 
                 //Network change process, stores network changes in an array that are then used to draw limit lines on the graph
-                if (network_change_array.size() == 0) {
-                    network_change_array.add(SSID);
-                    network_change_timestamp_array.add(total_seconds);
-                }
-                if (!SSID.equals(network_change_array.get(network_change_array.size() - 1))) {
-                    network_change_array.add(SSID);
-                    network_change_timestamp_array.add(total_seconds);
-                }
-
-                if (BSSID != null){
-                    if (access_point_change_array.size() == 0) {
-                        access_point_change_array.add(BSSID);
-                        access_point_change_timestamp_array.add(total_seconds);
+                if (reference_timestamp != null) {
+                    if (network_change_array.size() == 0) {
+                        network_change_array.add(SSID);
+                        network_change_timestamp_array.add(total_seconds);
                     }
-                    if (!BSSID.equals(access_point_change_array.get(access_point_change_array.size() - 1))) {
-                        access_point_change_array.add(BSSID);
-                        access_point_change_timestamp_array.add(total_seconds);
+                    if (!SSID.equals(network_change_array.get(network_change_array.size() - 1))) {
+                        network_change_array.add(SSID);
+                        network_change_timestamp_array.add(total_seconds);
                     }
-                }else{
-                    if (access_point_change_array.size() == 0) {
-                        access_point_change_array.add("Wifi disabled");
-                        access_point_change_timestamp_array.add(total_seconds);
+
+                    if (BSSID != null) {
+                        if (access_point_change_array.size() == 0) {
+                            access_point_change_array.add(BSSID);
+                            access_point_change_timestamp_array.add(total_seconds);
+                        }
+                        if (!BSSID.equals(access_point_change_array.get(access_point_change_array.size() - 1))) {
+                            access_point_change_array.add(BSSID);
+                            access_point_change_timestamp_array.add(total_seconds);
+                        }
+                    } else {
+                        if (access_point_change_array.size() == 0) {
+                            access_point_change_array.add("Wifi disabled");
+                            access_point_change_timestamp_array.add(total_seconds);
+                        }
+                        if (!Objects.equals(access_point_change_array.get(access_point_change_array.size() - 1), "Wifi disabled")) {
+                            access_point_change_array.add("Wifi disabled");
+                            access_point_change_timestamp_array.add(total_seconds);
+                        }
                     }
-                    if (!Objects.equals(access_point_change_array.get(access_point_change_array.size() - 1), "Wifi disabled")) {
-                        access_point_change_array.add("Wifi disabled");
-                        access_point_change_timestamp_array.add(total_seconds);
-                    }
-                }
 
 
-                //graph limit lines
+                    //graph limit lines
 
-                // reset all limit lines to avoid overlapping lines
-                xAxis.removeAllLimitLines();
+                    // reset all limit lines to avoid overlapping lines
+                    xAxis.removeAllLimitLines();
 
-                // add limit lines for each network change
-                for (int network_change_array_i = 0; network_change_array_i < network_change_array.size(); network_change_array_i++) {
+                    // add limit lines for each network change
+                    for (int network_change_array_i = 0; network_change_array_i < network_change_array.size(); network_change_array_i++) {
 
-                    LimitLine network_change_limitline = new LimitLine(network_change_timestamp_array.get(network_change_array_i), "");
-                    network_change_limitline.setLineColor(Color.RED);
-                    network_change_limitline.setLineWidth(2f);
+                        LimitLine network_change_limitline = new LimitLine(network_change_timestamp_array.get(network_change_array_i), "");
+                        network_change_limitline.setLineColor(Color.RED);
+                        network_change_limitline.setLineWidth(2f);
 
-                    xAxis.addLimitLine(network_change_limitline);
-                    //xAxis.setDrawLimitLinesBehindData(true);
-                }
-
-                // add limit lines for each access point change with check to ensure that if network and access point change occurs don't draw both lines
-                for (int access_point_change_array_i = 0; access_point_change_array_i < access_point_change_array.size(); access_point_change_array_i++) {
-
-                    if (network_change_timestamp_array.stream().noneMatch(access_point_change_timestamp_array.get(access_point_change_array_i)::equals)) {
-                        LimitLine ll = new LimitLine(access_point_change_timestamp_array.get(access_point_change_array_i), "");
-                        ll.setLineColor(Color.RED);
-                        ll.enableDashedLine(10f, 10f, 0f);
-                        ll.setLineWidth(2f);
-                        xAxis.addLimitLine(ll);
+                        xAxis.addLimitLine(network_change_limitline);
                         //xAxis.setDrawLimitLinesBehindData(true);
+                    }
+
+                    // add limit lines for each access point change with check to ensure that if network and access point change occurs don't draw both lines
+                    for (int access_point_change_array_i = 0; access_point_change_array_i < access_point_change_array.size(); access_point_change_array_i++) {
+
+                        if (network_change_timestamp_array.stream().noneMatch(access_point_change_timestamp_array.get(access_point_change_array_i)::equals)) {
+                            LimitLine ll = new LimitLine(access_point_change_timestamp_array.get(access_point_change_array_i), "");
+                            ll.setLineColor(Color.RED);
+                            ll.enableDashedLine(10f, 10f, 0f);
+                            ll.setLineWidth(2f);
+                            xAxis.addLimitLine(ll);
+                            //xAxis.setDrawLimitLinesBehindData(true);
+                        }
                     }
                 }
             }
@@ -625,12 +751,20 @@ public class MainActivity extends AppCompatActivity {
 
 
             TextView Timeline_current_strength_text = findViewById(R.id.Timeline_current_strength_text);
-            Timeline_current_strength_text.setText(getString(R.string.Timeline_current_strength_text, wifi_strength));
+
+            if (Objects.equals(wifi_strength, -127)){
+                Timeline_current_strength_text.setText(getString(R.string.Timeline_current_strength_no_connection_text));
+            }else{
+                Timeline_current_strength_text.setText(getString(R.string.Timeline_current_strength_text, wifi_strength));
+            }
+
             TextView Connection_Quality_good_percentage = findViewById(R.id.Connection_Quality_good_percentage);
             TextView connection_Quality_average_percentage = findViewById(R.id.connection_Quality_average_percentage);
             TextView connection_Quality_bad_percentage = findViewById(R.id.connection_Quality_bad_percentage);
 
-            wifi_strength_array.add(wifi_strength);
+            if (reference_timestamp != null) {
+                wifi_strength_array.add(wifi_strength);
+            }
 
             float good_threshold = -60;
             float good_count = 0;
@@ -744,7 +878,7 @@ public class MainActivity extends AppCompatActivity {
         Reset_test_button = findViewById(R.id.Reset_test_button);
         Reset_test_button.setOnClickListener(view -> {
             Reset_data.setData("true");
-            System.out.println(Reset_data.getData());
+            //System.out.println(Reset_data.getData());
             mHandler.removeCallbacks(Wifi_scan_loop);
             Wifi_scan_loop.run();
         });

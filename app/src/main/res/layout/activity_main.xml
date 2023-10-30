@@ -96,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
-        android:text="Testing WiFi Strength please wait for more data"
+        android:text="@string/Minimum_results_text"
         android:textAlignment="center"
         android:textColor="#12141c"
         android:textSize="40dp"
@@ -108,8 +108,8 @@
         app:layout_constraintStart_toStartOf="@+id/Minimum_results_box"
         app:layout_constraintTop_toTopOf="@+id/Minimum_results_box"
         app:layout_constraintVertical_bias="0.283"
-        tools:visibility="gone"
-        tools:ignore="SpUsage" />
+        tools:ignore="SpUsage"
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/Minimum_results_box"
