@@ -130,12 +130,10 @@
         android:textColor="#12141c"
         android:textSize="20dp"
         android:translationZ="100dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/Wifi_details_box"
         app:layout_constraintStart_toStartOf="@+id/Wifi_details_box"
         app:layout_constraintTop_toTopOf="@+id/Wifi_details_box"
-        tools:ignore="SpUsage,TextSizeCheck"
-        tools:visibility="gone" />
+        tools:ignore="SpUsage,TextSizeCheck" />
 
     <TextView
         android:id="@+id/Wifi_details_values"
@@ -150,12 +148,10 @@
         android:textColor="#12141c"
         android:textSize="20dp"
         android:translationZ="100dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/Wifi_details_properties_text"
         app:layout_constraintStart_toEndOf="@+id/Wifi_details_properties_text"
         app:layout_constraintTop_toTopOf="@+id/Wifi_details_properties_text"
-        tools:ignore="SpUsage,TextSizeCheck"
-        tools:visibility="gone" />
+        tools:ignore="SpUsage,TextSizeCheck" />
 
     <!-- Other Networks -->
 

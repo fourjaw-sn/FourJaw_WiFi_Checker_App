@@ -1,4 +1,4 @@
-package com.example.fourjaw_wifi_checker_app_beta_v3;
+package com.example.fourjaw_wifi_checker_app;
 public class Reset_data {
     static String s;
     public static void setData(String s) {

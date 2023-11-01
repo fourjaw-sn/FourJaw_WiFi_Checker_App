@@ -1,4 +1,4 @@
-package com.example.fourjaw_wifi_checker_app_beta_v3;
+package com.example.fourjaw_wifi_checker_app;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
